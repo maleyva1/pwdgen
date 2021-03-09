@@ -36,23 +36,28 @@ generate_password(struct arguments *arguments, struct password_result_t *result)
     struct password_options pw_opt;
     char *generated_pw;
 
-    if (strncmp(arguments->args[0], "alphanumeric_w_symbols", strlen("alphanumeric_w_symbols")) == 0) {
+    if (strncmp(arguments->args[0], "asd", strlen("asd")) == 0) {
         pw_opt.alphabet = ALPHANUMERIC_W_SYMBOLS;
-    } else if (strncmp(arguments->args[0], "alphanumeric", strlen("alphanumeric")) == 0) {
+    } else if (strncmp(arguments->args[0], "a", strlen("a")) == 0) {
         pw_opt.alphabet = ALPHANUMERIC;
-    } else if(strncmp(arguments->args[0], "latin_characters", strlen("latin_characters")) ==0) {
+    } else if(strncmp(arguments->args[0], "l", strlen("l")) ==0) {
         pw_opt.alphabet = LATIN_CHARACTERS;
-    } else if(strncmp(arguments->args[0], "symbols", strlen("symbols")) == 0) {
+    } else if(strncmp(arguments->args[0], "s", strlen("s")) == 0) {
         pw_opt.alphabet = SYMBOLS;
-    } else if (strncmp(arguments->args[0], "digits", strlen("digits")) == 0) {
+    } else if (strncmp(arguments->args[0], "d", strlen("d")) == 0) {
         pw_opt.alphabet = DIGITS;
     } else {
-        printf("Not a valid option for --alphabet\n");
+        fprintf(stderr, "Not a valid alphabet set\n");
         result->result = PW_NOT_A_VALID_ARGUMENT;
         return;
     }
 
     pw_opt.password_length = atoi(arguments->args[1]);
+    if (pw_opt.password_length <= 0) {
+        fprintf(stderr, "Not a valid length\n");
+        result->result = PW_NOT_A_VALID_ARGUMENT;
+        return;
+    }
 
     char *pw = malloc(pw_opt.password_length * sizeof(char));
     if (pw == NULL) {
@@ -102,9 +107,6 @@ void
 print_error_msg(struct password_result_t *result)
 {
     switch(result->result) {
-    case PW_NOT_A_VALID_ARGUMENT:
-        printf("Not a valid argument.\n");
-        break;
     case PW_FAILED_TO_ALLOCATE_MEMORY:
         printf("Unable to allocate memory for password to be generated.\n");
         break;

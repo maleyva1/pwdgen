@@ -2,8 +2,7 @@
 #define PW_H
 #include <stdint.h>
 
-struct arguments
-{
+struct arguments {
     char *args[2];
     int verbose;
 };

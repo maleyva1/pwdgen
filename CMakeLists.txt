@@ -13,7 +13,11 @@ target_sources(pwdgen PRIVATE
 
 target_include_directories(pwdgen BEFORE PRIVATE "inc")
 
-set(COMMON_FLAGS -fsanitize=address)
+set(COMMON_FLAGS 
+        -fsanitize=address
+        -Wall
+        -pedantic
+)
 
 if (CMAKE_BUILD_TYPE STREQUAL Debug)
         target_compile_options(pwdgen PRIVATE ${COMMON} -g)

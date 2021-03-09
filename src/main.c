@@ -3,14 +3,16 @@
 #include <stdio.h>
 #include "pw.h"
 
-const char *argp_program_version = "pwdgen 1.0";
-const char *argp_program_bug_address = "<leyva.mark@yahoo.com>";
-static const char doc[] = "Random Password Generator -- A small random ASCII password generator.";
-static const char args_doc[] = "<alphanumeric|digits|symbols|alphanumeric_w_symbolds> pw_length";
-
-static struct argp_option options[] = {
-    {0}
-};
+const char *argp_program_version = 
+"pwdgen 1.0";
+const char *argp_program_bug_address = 
+"<mark@leyva.me>";
+static const char doc[] = 
+"Random Password Generator -- A small random ASCII password generator.\n\
+ALPHABET is either 'a', 's', 'l', 'd', or 'asd'\n\
+LENGTH is a positive integer specifying the length of the generated password\n";
+static const char args_doc[] = 
+"ALPHABET LENGTH";
 
 static error_t
 parse_opt(int key, char *arg, struct argp_state *state) {
@@ -36,7 +38,7 @@ parse_opt(int key, char *arg, struct argp_state *state) {
     return 0;
 }
 
-static struct argp arg_p = { options, parse_opt, args_doc, doc };
+static struct argp arg_p = { 0, parse_opt, args_doc, doc };
 
 int main(int argc, char *argv[]) {
     struct arguments arguments;
