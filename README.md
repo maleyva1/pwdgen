@@ -1,8 +1,9 @@
 # pwdgen
 
-Simple CLI password generator for Linux. Can generate
+A simple CLI password generator for Linux. It can generate
 alphanmeric, digit-only, symbol-only, or 
-alphanumeric-with-symbols passwords of variable length.
+alphanumeric-with-symbols passwords of variable length L
+where L < 255.
 
 ## Usage
 
