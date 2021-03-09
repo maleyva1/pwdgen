@@ -15,7 +15,7 @@ alphanumeric-with-symbols passwords of variable length.
 ## Building
 
 Feel free to use the include `build.sh` script or 
-follow the commands below
+follow the commands below:
 
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE

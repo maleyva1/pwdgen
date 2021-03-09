@@ -1,13 +1,17 @@
 #!/bin/bash
 
-type=$1
+type="$1"
 
-if [ "$type" != "Production" ]; then
-	type="Debug";
-else
-	echo "Unknown build type for this project";
-	echo "USAGE: ./build.sh [Production|Debug]";
-	exit 1;
+if [ "$type" != "Production" ] && [ "$type" != "Debug" ] ; then
+	if [ -z "$type" ]; then
+		echo "No build type specified";
+		echo "Defaulting to 'Debug'";
+		type="Debug";
+	else
+		echo "$type is an unknown build type for this project";
+		echo "USAGE: ./build.sh [Production|Debug]";
+		exit 1;
+	fi;
 fi;
 
 cmake -B build -DCMAKE_BUILD_TYPE=$type

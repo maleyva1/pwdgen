@@ -13,7 +13,8 @@ enum pw_result_t{
     PW_MEMORY_FAULT,
     PW_INTERRUPTED,
     PW_NO_KERNEL_SUPPORT,
-    PW_NOT_A_VALID_ARGUMENT
+    PW_NOT_A_VALID_ARGUMENT,
+    PW_FAILURE
 };
 
 struct password_result_t {

@@ -60,13 +60,14 @@ generate_password(struct arguments *arguments, struct password_result_t *result)
     }
 
     char *pw = malloc(pw_opt.password_length * sizeof(char));
-    if (pw == NULL) {
+    if (!pw) {
         result->result = PW_FAILED_TO_ALLOCATE_MEMORY;
         return;
     }
 
     char *buffer = malloc(MAX_BUFFER_LEN * sizeof(char));
-    if (buffer == NULL) {
+    if (!buffer) {
+        free(pw);
         result->result = PW_FAILED_TO_ALLOCATE_MEMORY;
         return;
     }
@@ -117,7 +118,8 @@ print_error_msg(struct password_result_t *result)
         printf("No support for generating passwords on this machine.\n");
         break;
     case PW_SUCCESS:
-        printf("%s\n", result->pw);
+        if (result->pw)
+            printf("%s\n", result->pw);
         break;
     case PW_INTERRUPTED:
         /* Fallthrough */

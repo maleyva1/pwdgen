@@ -19,7 +19,6 @@ parse_opt(int key, char *arg, struct argp_state *state) {
     struct arguments *arguments = state->input;
 
     switch(key) {
-        break;
     case ARGP_KEY_ARG:
         if (state->arg_num >= 2) {
             argp_usage(state);
@@ -50,6 +49,7 @@ int main(int argc, char *argv[]) {
     // Generate password
     struct password_result_t result;
     memset(&result, 0, sizeof(result));
+    result.result = PW_FAILURE;
 
     generate_password(&arguments, &result);
 
