@@ -13,6 +13,9 @@ where L < 255.
 
 `pwdgen asd 15`
 
+Generates a password 15 characters in length
+contain only alphabnumeric-with-symbol characters.
+
 ## Building
 
 Feel free to use the include `build.sh` script or 
