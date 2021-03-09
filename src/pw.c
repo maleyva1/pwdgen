@@ -115,7 +115,6 @@ print_error_msg(struct password_result_t *result)
         printf("No support for generating passwords on this machine.\n");
         break;
     case PW_SUCCESS:
-        printf("Succesfully generated password!\n");
         printf("%s\n", result->pw);
         break;
     case PW_INTERRUPTED:
