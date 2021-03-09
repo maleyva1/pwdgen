@@ -36,18 +36,21 @@ generate_password(struct arguments *arguments, struct password_result_t *result)
     struct password_options pw_opt;
     char *generated_pw;
 
-    if (strncmp(arguments->args[0], "asd", strlen("asd")) == 0) {
+    size_t len = strlen(arguments->args[0]);
+
+    if ((strncmp(arguments->args[0], "asd", 3) == 0) && len == 3) {
         pw_opt.alphabet = ALPHANUMERIC_W_SYMBOLS;
-    } else if (strncmp(arguments->args[0], "a", strlen("a")) == 0) {
+    } else if (strncmp(arguments->args[0], "a", 1) == 0 && len == 1) {
         pw_opt.alphabet = ALPHANUMERIC;
-    } else if(strncmp(arguments->args[0], "l", strlen("l")) ==0) {
+    } else if(strncmp(arguments->args[0], "l", 1) ==0 && len == 1) {
         pw_opt.alphabet = LATIN_CHARACTERS;
-    } else if(strncmp(arguments->args[0], "s", strlen("s")) == 0) {
+    } else if(strncmp(arguments->args[0], "s", 1) == 0 && len == 1) {
         pw_opt.alphabet = SYMBOLS;
-    } else if (strncmp(arguments->args[0], "d", strlen("d")) == 0) {
+    } else if (strncmp(arguments->args[0], "d", 1) == 0 && len == 1) {
         pw_opt.alphabet = DIGITS;
     } else {
-        fprintf(stderr, "Not a valid alphabet set\n");
+        fprintf(stderr, "%s is not a valid alphabet set\n", arguments->args[0]);
+        fprintf(stderr, "Use 'a', 's', 'l', 'd', or 'asd'.\n");
         result->result = PW_NOT_A_VALID_ARGUMENT;
         return;
     }
@@ -96,7 +99,7 @@ generate_password(struct arguments *arguments, struct password_result_t *result)
     }
 
     free(buffer);
-    generated_pw = (char *) malloc(pw_opt.password_length * sizeof(char) + 1);
+    generated_pw = (char *) calloc(pw_opt.password_length + 1, sizeof(char));
     memcpy(generated_pw, pw, pw_opt.password_length);
     free(pw);
 
@@ -109,17 +112,17 @@ print_error_msg(struct password_result_t *result)
 {
     switch(result->result) {
     case PW_FAILED_TO_ALLOCATE_MEMORY:
-        printf("Unable to allocate memory for password to be generated.\n");
+        fprintf(stdout, "Unable to allocate memory for password to be generated.\n");
         break;
     case PW_MEMORY_FAULT:
-        printf("Memory fault occured.\n");
+        fprintf(stdout, "Memory fault occured.\n");
         break;
     case PW_NO_KERNEL_SUPPORT:
-        printf("No support for generating passwords on this machine.\n");
+        fprintf(stdout, "No support for generating passwords on this machine.\n");
         break;
     case PW_SUCCESS:
         if (result->pw)
-            printf("%s\n", result->pw);
+            fprintf(stdout, "%s\n", result->pw);
         break;
     case PW_INTERRUPTED:
         /* Fallthrough */
